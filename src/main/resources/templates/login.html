@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login | Student Management System</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap 4 CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    
+    <!-- Custom CSS -->
+    <style>
+        body {
+			background-image: url("images/cubes.png");
+			background-repeat: repeat;		     
+
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .login-container {
+            margin-top: 100px;
+            max-width: 450px;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+        }
+        .login-title {
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #343a40;
+        }
+        .form-control {
+            border-radius: 6px;
+        }
+        .btn-primary {
+            width: 100%;
+            border-radius: 6px;
+        }
+        .alert {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="login-container">
+        <h2 class="text-center login-title">Student Management Login</h2>
+        <form method="post" th:action="@{/login}">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input name="username" class="form-control" id="username" required />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input name="password" type="password" class="form-control" id="password" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+
+            <div th:if="${param.error}" class="alert alert-danger text-center">Invalid username or password</div>
+            <div th:if="${param.logout}" class="alert alert-success text-center">You have logged out successfully</div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

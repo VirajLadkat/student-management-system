@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Create Student</title>
+
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" 
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            background-image: url("/images/cubes.png");
+            background-repeat: repeat;
+        }
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 700px;
+            margin: 30px auto;
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+        .form-title {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+	    <a class="navbar-brand" href="#">Student Management System</a>
+	    <div class="collapse navbar-collapse">
+	        <ul class="navbar-nav mr-auto">
+	            <li class="nav-item">
+	                <a class="nav-link" th:href="@{/students}">Student Management</a>
+	            </li>
+	        </ul>
+	    </div>
+	    <form th:action="@{/logout}" method="post" class="form-inline my-2 my-lg-0">
+	        <button type="submit" class="btn btn-danger">Logout</button>
+	    </form>
+	</nav>
+
+	<div class="form-container">
+	    <h2 class="form-title">Create New Student</h2>
+
+	    <form th:action="@{/students}" th:object="${student}" method="post">
+	        <div class="form-row">
+	            <div class="form-group col-md-6">
+	                <label for="firstname">First Name</label>
+	                <input type="text" th:field="*{firstname}" class="form-control" id="firstname" placeholder="Enter First Name" required>
+	            </div>
+	            <div class="form-group col-md-6">
+	                <label for="lastname">Last Name</label>
+	                <input type="text" th:field="*{lastname}" class="form-control" id="lastname" placeholder="Enter Last Name" required>
+	            </div>
+	        </div>
+
+	        <div class="form-row">
+	            <div class="form-group col-md-6">
+	                <label for="email">Email</label>
+	                <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="Enter Email" required>
+	            </div>
+	            <div class="form-group col-md-6">
+	                <label for="department">Department</label>
+	                <input type="text" id="department" name="department" class="form-control" th:value="${student.department}" placeholder="Enter Department" required>
+	            </div>
+	        </div>
+
+	        <div class="form-row">
+	            <div class="form-group col-md-6">
+	                <label for="course">Course</label>
+	                <input type="text" id="course" name="course" class="form-control" th:value="${student.course}" placeholder="Enter Course"required>
+	            </div>
+	            <div class="form-group col-md-3">
+	                <label for="semester">Semester</label>
+	                <input type="text" id="semester" name="semester" class="form-control" th:value="${student.semester}" placeholder="Enter Semester" required>
+	            </div>
+	            <div class="form-group col-md-3">
+	                <label for="year">Academic Year</label>
+	                <input type="number" id="year" name="year" class="form-control" th:value="${student.year}"  placeholder="Enter Year" required>
+	            </div>
+	        </div>
+
+	        <div class="text-center mt-3">
+	            <button type="submit" class="btn btn-success">Save Student</button>
+	            <a th:href="@{/students}" class="btn btn-secondary ml-2">Cancel</a>
+	        </div>
+	    </form>
+	</div>
+
+</body>
+</html>
