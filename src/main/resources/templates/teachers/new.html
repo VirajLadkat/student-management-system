@@ -1,0 +1,33 @@
+<!-- templates/teachers/new.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Teacher</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Add Teacher</h2>
+    <form th:action="@{/teachers}" th:object="${teacher}" method="post">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input th:field="*{name}" type="text" class="form-control" id="name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input th:field="*{email}" type="email" class="form-control" id="email" required>
+        </div>
+        <div class="form-group">
+            <label for="subject">Subject</label>
+            <input th:field="*{subject}" type="text" class="form-control" id="subject" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <input th:field="*{phone}" type="text" class="form-control" id="phone" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Teacher</button>
+        <a th:href="@{/teachers}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+</body>
+</html>

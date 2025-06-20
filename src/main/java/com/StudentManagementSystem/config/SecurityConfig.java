@@ -16,45 +16,57 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @EnableWebSecurity
 public class SecurityConfig {
 
-	
-	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-	    http
-	        .authorizeHttpRequests(auth -> auth
-	            .requestMatchers("/login", "/css/**", "/js/**", "/images/**").permitAll()
-	            .requestMatchers("/students/**").authenticated()
-	        )
-	        .formLogin(form -> form
-	            .loginPage("/login")
-	            .defaultSuccessUrl("/students", true) // redirect here after successful login
-	            .permitAll()
-	        )
-	        .logout(logout -> logout
-	        	    .logoutSuccessUrl("/login?logout")
-	        	    .invalidateHttpSession(true)
-	        	    .clearAuthentication(true)
-	        	    .permitAll()
-	        	);
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/login", "/css/**", "/js/**", "/images/**").permitAll()
+                .requestMatchers("/dashboard", "/students/**").hasAnyRole("ADMIN", "TEACHER")
+                .requestMatchers("/teachers/**").hasRole("ADMIN")
+                .requestMatchers("/courses/**").hasAnyRole("ADMIN", "TEACHER")
+                .anyRequest().authenticated()
+            )
+            .formLogin(form -> form
+                .loginPage("/login")
+                .defaultSuccessUrl("/dashboard", true)
+                .permitAll()
+            )
+            .logout(logout -> logout
+                .logoutSuccessUrl("/login?logout")
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .permitAll()
+            );
 
-	    return http.build();
-	}
-
+        return http.build();
+    }
 
     @Bean
     public UserDetailsService userDetailsService(PasswordEncoder encoder) {
-        UserDetails user = User.builder()
+        // Sample in-memory users
+        UserDetails admin = User.builder()
             .username("admin")
-            .password(encoder.encode("admin"))
-            .roles("USER")
+            .password(encoder.encode("admin123"))
+            .roles("ADMIN")
             .build();
-        return new InMemoryUserDetailsManager(user);
+
+        UserDetails teacher = User.builder()
+            .username("teacher")
+            .password(encoder.encode("teacher123"))
+            .roles("TEACHER")
+            .build();
+
+        UserDetails student = User.builder()
+            .username("student")
+            .password(encoder.encode("student123"))
+            .roles("STUDENT")
+            .build();
+
+        return new InMemoryUserDetailsManager(admin, teacher, student);
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
-    
-
 }
