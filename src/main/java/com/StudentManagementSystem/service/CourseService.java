@@ -7,6 +7,7 @@ public interface CourseService {
     List<Course> getAllCourses();
     Course getCourseById(Long id);          
     Course saveCourse(Course course);
-    void deleteCourseById(Long id);          
+    void deleteCourseById(Long id);   
+    long getTotalCount();
 }
 

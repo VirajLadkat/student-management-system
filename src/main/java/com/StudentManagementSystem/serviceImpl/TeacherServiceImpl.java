@@ -43,4 +43,10 @@ public class TeacherServiceImpl implements TeacherService {
         }
         return teacherRepository.findAll(pageable);
     }
+    
+    @Override
+    public long getTotalCount() {
+        return teacherRepository.count();
+    }
+
 }

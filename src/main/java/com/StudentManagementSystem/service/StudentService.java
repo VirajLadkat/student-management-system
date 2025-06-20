@@ -17,5 +17,7 @@ public interface StudentService {
 	public void deleteById(int id);
 	
 	Page<Student> findPaginatedAndSearched(String keyword, int page, int size);
+	
+	long getTotalCount();
 
 }

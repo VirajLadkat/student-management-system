@@ -128,14 +128,6 @@ public class StudentController {
         StudentPdfExporter exporter = new StudentPdfExporter(students);
         exporter.export(response);
     }
-    
-    @GetMapping("/dashboard")
-    public String dashboard() {
-        return "dashboard";
-    }
-
-
-
-    
+       
 }
 

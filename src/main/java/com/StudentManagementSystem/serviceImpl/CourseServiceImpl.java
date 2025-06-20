@@ -35,6 +35,10 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.save(course);
     }
 
-   
+    @Override
+    public long getTotalCount() {
+        return courseRepository.count();
+    }
+
 	
 }

@@ -51,5 +51,10 @@ public class ServiceImpl implements StudentService{
 	    }
 	    return Studentrepository.findAll(pageable);
 	}
+	
+	public long getTotalCount() {
+	    return Studentrepository.count(); // For studentService
+	}
+
 
 }

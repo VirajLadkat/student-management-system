@@ -11,4 +11,5 @@ public interface TeacherService {
     Teacher getById(int id);
     void deleteById(int id);
     Page<Teacher> findPaginatedAndSearched(String keyword, int page, int size);
+    long getTotalCount();
 }
